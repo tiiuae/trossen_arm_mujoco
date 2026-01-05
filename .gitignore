@@ -10,3 +10,5 @@ data/
 .ruff_cache
 .vscode*
 episodes*
+external*
+.serena/*
