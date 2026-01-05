@@ -310,9 +310,12 @@ class InteractiveJointController:
         self.slider_fig.show()
 
         # Keep the script running while the slider window is open
+        # Continuously step the simulation to keep physics running
         try:
             while plt.fignum_exists(self.slider_fig.number):
-                plt.pause(0.1)
+                # Step simulation with current joint values to keep physics active
+                self._update_simulation()
+                plt.pause(0.02)  # ~50 Hz update rate
         except KeyboardInterrupt:
             pass
 
