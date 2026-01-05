@@ -253,13 +253,15 @@ def test_sim_teleop():
     # setup the environment
     cam_list = ["cam_high", "cam_low", "cam_left_wrist", "cam_right_wrist"]
     env = make_sim_env(TransferCubeTask, "trossen_ai_scene_joint.xml")
+    # Set initial box pose: [x, y, z, qw, qx, qy, qz]
+    BOX_POSE[0] = [0.0, 0.0, 0.0125, 1.0, 0.0, 0.0, 0.0]
     ts = env.reset()
     episode = [ts]
     # setup plotting
     plt_imgs = plot_observation_images(ts.observation, cam_list)
 
     for t in range(1000):
-        action = np.random.uniform(-np.pi, np.pi, 16)
+        action = np.random.uniform(-np.pi/2, np.pi/2, 16)
         ts = env.step(action)
         episode.append(ts)
 
