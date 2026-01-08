@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  simulation:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: interbotix_ros_simulation:latest
+    environment:
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./worlds:/root/gazebo_worlds
+    stdin_open: true
+    tty: true
+    privileged: true
+    network_mode: "host"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
