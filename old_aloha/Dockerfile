@@ -30,4 +30,12 @@ RUN ./xsarm_amd64_install.sh -d humble -p /workspace/interbotix_ws -n
 # Clean up the installation script
 RUN rm -f /workspace/xsarm_amd64_install.sh
 
+# Copy the python scripts into the container
+COPY robot-controllers/ /workspace/robot-controllers/
+
+# Write to bashrc to source the interbotix workspace
+RUN echo "" >> ~/.bashrc
+RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+RUN echo "source /workspace/interbotix_ws/install/setup.bash" >> ~/.bashrc
+
 CMD ["/bin/bash"]
